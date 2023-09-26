@@ -1,9 +1,21 @@
 package com.example.doanchuyennganh.Model;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
     private String name;
     private String image;
     private String price;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    private String description;
 
     public String getName() {
         return name;
@@ -32,9 +44,10 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name, String image, String price) {
+    public Category(String name, String image, String price, String description) {
         this.name = name;
         this.image = image;
         this.price = price;
+        this.description = description;
     }
 }

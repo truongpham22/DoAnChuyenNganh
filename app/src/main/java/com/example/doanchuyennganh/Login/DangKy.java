@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class DangKy extends AppCompatActivity {
+    private boolean registrationSuccessful = false;
     EditText edtSdt, edtPassword, edtName;
     Button btnSignUp;
     TextView txtSignIn;
@@ -46,14 +47,25 @@ public class DangKy extends AppCompatActivity {
                 table_user.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (!snapshot.child(edtSdt.getText().toString()).exists()){
+                        String phone = edtSdt.getText().toString();
+                        String password = edtPassword.getText().toString();
+                        String name = edtName.getText().toString();
+                        if (phone.isEmpty()) {
+                            Toast.makeText(DangKy.this, "Số điện thoại không được để trống", Toast.LENGTH_SHORT).show();
+                        } else if (password.isEmpty()) {
+                            Toast.makeText(DangKy.this, "Mật khẩu không được để trống", Toast.LENGTH_SHORT).show();
+                        } else if (name.isEmpty()) {
+                            Toast.makeText(DangKy.this, "Tên không được để trống", Toast.LENGTH_SHORT).show();
+                        }
+                        else if ( !registrationSuccessful && !snapshot.child(edtSdt.getText().toString()).exists()){
                             User user = new User(edtName.getText().toString(),edtPassword.getText().toString(),edtSdt.getText().toString());
                             table_user.child(edtSdt.getText().toString()).setValue(user);
                             Toast.makeText(DangKy.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                            registrationSuccessful = true;
                             Intent intent = new Intent(DangKy.this, DangNhap.class);
                             startActivity(intent);
                             finish();
-                        }else {
+                        }else if (!registrationSuccessful && snapshot.child(edtSdt.getText().toString()).exists()){
                             Toast.makeText(DangKy.this, "Số điện thoại đã tồn tại!!!", Toast.LENGTH_SHORT).show();
                         }
                     }

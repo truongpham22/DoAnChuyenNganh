@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.doanchuyennganh.HomeActivity;
+import com.example.doanchuyennganh.Activity.HomeActivity;
 import com.example.doanchuyennganh.Model.CurrentUser;
 import com.example.doanchuyennganh.Model.User;
 import com.example.doanchuyennganh.R;
@@ -47,29 +47,29 @@ public class DangNhap extends AppCompatActivity {
                 table_user.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.child(edtSdt.getText().toString()).exists()){
-                            User user = snapshot.child(edtSdt.getText().toString()).getValue(User.class);
-                            if (user.getPassword().equals(edtPassword.getText().toString()) && user.getPhone().equals(edtSdt.getText().toString())){
-                                Toast.makeText(DangNhap.this,"Đăng nhập thành công!",Toast.LENGTH_SHORT).show();
+                        String phone = edtSdt.getText().toString();
+                        String password = edtPassword.getText().toString();
+
+                        if (phone.isEmpty()) {
+                            Toast.makeText(DangNhap.this, "Số điện thoại không được để trống", Toast.LENGTH_SHORT).show();
+                        } else if (password.isEmpty()) {
+                            Toast.makeText(DangNhap.this, "Mật khẩu không được để trống", Toast.LENGTH_SHORT).show();
+                        } else if (snapshot.child(phone).exists()) {
+                            User user = snapshot.child(phone).getValue(User.class);
+                            CurrentUser.currentUser = user;
+                            if (user.getPassword().equals(password) && user.getPhone().equals(phone)) {
+                                Toast.makeText(DangNhap.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(DangNhap.this, HomeActivity.class);
-                                CurrentUser.currentUser=user;
                                 startActivity(intent);
                                 finish();
+                            } else {
+                                Toast.makeText(DangNhap.this, "Đăng nhập thất bại!!!", Toast.LENGTH_SHORT).show();
                             }
-                            else {
-                                Toast.makeText(DangNhap.this,"Đăng nhập thất bại!!!",Toast.LENGTH_SHORT).show();
-
-                            }
-                            if (edtSdt.getText().toString().isEmpty()){
-                                Toast.makeText(DangNhap.this,"Số điện thoại không được để trống",Toast.LENGTH_SHORT).show();
-                            }else if (edtPassword.getText().toString().isEmpty()){
-                                Toast.makeText(DangNhap.this,"Mật khẩu không được để trống",Toast.LENGTH_SHORT).show();
-                            }
-                        }else {
-                            Toast.makeText(DangNhap.this,"Tài khoản không tồn tại",Toast.LENGTH_SHORT).show();
-
+                        } else {
+                            Toast.makeText(DangNhap.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 

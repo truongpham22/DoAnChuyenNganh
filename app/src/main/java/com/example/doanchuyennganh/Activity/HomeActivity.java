@@ -1,4 +1,4 @@
-package com.example.doanchuyennganh;
+package com.example.doanchuyennganh.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.doanchuyennganh.Adapter.ViewPager2Adapter;
+import com.example.doanchuyennganh.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -36,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //ánh xạ viewpager2
         ViewPager2 viewPager2 =findViewById(R.id.viewPage2);
+        //set adapter cho viewpager2
         ViewPager2Adapter adapter = new ViewPager2Adapter(this);
         viewPager2.setAdapter(adapter);
 

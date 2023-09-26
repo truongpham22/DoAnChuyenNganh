@@ -19,6 +19,7 @@ import com.example.doanchuyennganh.R;
 import com.google.android.gms.common.internal.service.Common;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
@@ -61,7 +62,6 @@ public class InfoFragment extends Fragment {
     TextView txtPhone, txtName;
     Button btnLogout;
     View mView;
-    FoodAdapter foodAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,8 +81,6 @@ public class InfoFragment extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), DangNhap.class);
                 startActivity(intent);
-                txtName.setText(null);
-                txtPhone.setText(null);
                 //tạo cờ để tránh user quay lại được tab trước
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 getActivity().finish();
