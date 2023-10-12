@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import java.util.List;
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
     List<Category> categoryList;
     Context context;
+
     public FoodAdapter(List<Category> categoryList) {
         this.categoryList = categoryList;
     }
@@ -71,6 +73,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     public void reLease(){
         context = null;
     }
+
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
         TextView txtNfood, txtPrice;

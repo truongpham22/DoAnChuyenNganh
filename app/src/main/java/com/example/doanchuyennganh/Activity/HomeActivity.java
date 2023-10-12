@@ -2,15 +2,21 @@ package com.example.doanchuyennganh.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.doanchuyennganh.Adapter.CartAdapter;
 import com.example.doanchuyennganh.Adapter.ViewPager2Adapter;
+import com.example.doanchuyennganh.Database.Database;
+import com.example.doanchuyennganh.Model.Order;
 import com.example.doanchuyennganh.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -29,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
             return id;
         }
     }
-
+    ViewPager2Adapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +44,9 @@ public class HomeActivity extends AppCompatActivity {
         //ánh xạ viewpager2
         ViewPager2 viewPager2 =findViewById(R.id.viewPage2);
         //set adapter cho viewpager2
-        ViewPager2Adapter adapter = new ViewPager2Adapter(this);
+        adapter = new ViewPager2Adapter(this);
         viewPager2.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         //xử lý sự kiện khi vào bottomNav
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
@@ -84,5 +91,6 @@ public class HomeActivity extends AppCompatActivity {
                 super.onPageSelected(position);
             }
         });
+
     }
 }

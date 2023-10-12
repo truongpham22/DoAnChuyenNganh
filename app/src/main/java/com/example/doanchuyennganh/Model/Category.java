@@ -7,6 +7,24 @@ public class Category implements Serializable {
     private String image;
     private String price;
 
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
+    public Category(String name, String image, String price, String discount, String description) {
+        this.name = name;
+        this.image = image;
+        this.price = price;
+        this.discount = discount;
+        this.description = description;
+    }
+
+    private String discount;
+
     public String getDescription() {
         return description;
     }
@@ -42,12 +60,5 @@ public class Category implements Serializable {
     }
 
     public Category() {
-    }
-
-    public Category(String name, String image, String price, String description) {
-        this.name = name;
-        this.image = image;
-        this.price = price;
-        this.description = description;
     }
 }

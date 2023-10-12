@@ -1,5 +1,6 @@
 package com.example.doanchuyennganh.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Toast;
 
+import com.example.doanchuyennganh.Activity.DetailAcitivity;
 import com.example.doanchuyennganh.Adapter.FoodAdapter;
 import com.example.doanchuyennganh.Login.DangKy;
 import com.example.doanchuyennganh.Model.Category;
@@ -89,9 +91,9 @@ public class HomeFragment extends Fragment {
         foodAdapter = new FoodAdapter(categoryList);
         rcvFood.setAdapter(foodAdapter);
         loadMenu();
-
         return mView;
     }
+
 
     private void loadMenu() {
         //Load data menu
@@ -106,7 +108,6 @@ public class HomeFragment extends Fragment {
                 }
                 foodAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getActivity(), "Load data failed!", Toast.LENGTH_SHORT).show();

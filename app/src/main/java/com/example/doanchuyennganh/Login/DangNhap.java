@@ -60,6 +60,8 @@ public class DangNhap extends AppCompatActivity {
                             if (user.getPassword().equals(password) && user.getPhone().equals(phone)) {
                                 Toast.makeText(DangNhap.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(DangNhap.this, HomeActivity.class);
+                                //note
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 finish();
                             } else {

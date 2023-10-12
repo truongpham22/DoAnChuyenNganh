@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.doanchuyennganh.Activity.OrderActivity;
 import com.example.doanchuyennganh.Adapter.FoodAdapter;
 import com.example.doanchuyennganh.Login.DangNhap;
 import com.example.doanchuyennganh.Model.CurrentUser;
@@ -59,7 +60,7 @@ public class InfoFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    TextView txtPhone, txtName;
+    TextView txtPhone, txtName, txtOrder;
     Button btnLogout;
     View mView;
     @Override
@@ -71,6 +72,14 @@ public class InfoFragment extends Fragment {
         txtPhone = mView.findViewById(R.id.txtSdt);
         txtName = mView.findViewById(R.id.txtName);
         btnLogout = mView.findViewById(R.id.btnLogout);
+        txtOrder = mView.findViewById(R.id.txtOrder);
+        txtOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), OrderActivity.class);
+                startActivity(intent);
+            }
+        });
         //set Name với Phone cho user từ biến
         txtName.setText(CurrentUser.currentUser.getName());
         txtPhone.setText(CurrentUser.currentUser.getPhone());
