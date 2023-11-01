@@ -1,11 +1,14 @@
 package com.example.doanchuyennganh.Fragment;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +26,7 @@ import com.example.doanchuyennganh.Activity.HomeActivity;
 import com.example.doanchuyennganh.Adapter.CartAdapter;
 import com.example.doanchuyennganh.Adapter.FoodAdapter;
 import com.example.doanchuyennganh.Database.Database;
+
 import com.example.doanchuyennganh.Model.CurrentUser;
 import com.example.doanchuyennganh.Model.Order;
 import com.example.doanchuyennganh.Model.Request;
@@ -30,8 +34,11 @@ import com.example.doanchuyennganh.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,7 +94,7 @@ public class CartFragment extends Fragment {
     CartAdapter adapter;
     //firebase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference requests = database.getReference("Request"); //Request
+    DatabaseReference requests = database.getReference("Request");
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -104,6 +111,7 @@ public class CartFragment extends Fragment {
         rcvCart.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         txtTotalPrice = view.findViewById(R.id.txt_total_price);
+
         btnPay = view.findViewById(R.id.btn_payment);
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +125,6 @@ public class CartFragment extends Fragment {
 
     private void showAlertDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-        alertDialog.setTitle("One more step!");
         alertDialog.setTitle("Nhập số phòng!");
 
         final EditText edtAddress = new EditText(getContext());
@@ -132,7 +139,7 @@ public class CartFragment extends Fragment {
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String newRequestKey = String.valueOf(System.currentTimeMillis());
+                String Key = String.valueOf(System.currentTimeMillis());
                 Request request = new Request(
                         CurrentUser.currentUser.getName(),
                         CurrentUser.currentUser.getPhone(),
@@ -140,8 +147,8 @@ public class CartFragment extends Fragment {
                         txtTotalPrice.getText().toString(),
                         cart
                 );
-                request.setKey(newRequestKey);
-                requests.child(newRequestKey).setValue(request);
+                request.setKey(Key);
+                requests.child(Key).setValue(request);
                 new Database(getContext()).cleanCart();
                 Intent intent = new Intent(getContext(), HomeActivity.class);
                 //note
@@ -159,10 +166,17 @@ public class CartFragment extends Fragment {
         alertDialog.show();
     }
 
+
     private void loadListFood() {
-        //cart = new ArrayList<>();
         cart = new Database(getContext()).getCarts();
         adapter = new CartAdapter(cart, getContext());
         rcvCart.setAdapter(adapter);
+        //Tính tổng tiền
+        int total = 0;
+        for (Order order:cart)
+            total+=(Integer.parseInt(order.getPrice())*Integer.parseInt(order.getQuantity()));
+        Locale locale = new Locale("vn","VN");
+        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
+        txtTotalPrice.setText(fmt.format(total));
     }
 }

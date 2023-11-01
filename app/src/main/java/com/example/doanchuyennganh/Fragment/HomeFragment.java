@@ -91,6 +91,7 @@ public class HomeFragment extends Fragment {
         foodAdapter = new FoodAdapter(categoryList);
         rcvFood.setAdapter(foodAdapter);
         loadMenu();
+        foodAdapter.notifyDataSetChanged();
         return mView;
     }
 
@@ -105,8 +106,8 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Category category = dataSnapshot.getValue(Category.class);
                     categoryList.add(category);
+                    foodAdapter.notifyDataSetChanged();
                 }
-                foodAdapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

@@ -13,6 +13,7 @@ public class User {
 
     private String phone;
     private String password;
+    private String role;
     public User(){
 
     }
@@ -20,7 +21,17 @@ public class User {
         this.name = name;
         this.password = password;
         this.phone = phone;
+        role = "false";
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }

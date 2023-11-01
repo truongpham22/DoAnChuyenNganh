@@ -8,14 +8,14 @@ public class Order {
     private String Price;
     private String Discount;
 
-    public Order(int ID, String productId, String productName, String quantity, String price, String discount) {
-        this.ID = ID;
-        ProductId = productId;
-        ProductName = productName;
-        Quantity = quantity;
-        Price = price;
-        Discount = discount;
-    }
+//    public Order(int ID, String productId, String productName, String quantity, String price, String discount) {
+//        this.ID = ID;
+//        ProductId = productId;
+//        ProductName = productName;
+//        Quantity = quantity;
+//        Price = price;
+//        Discount = discount;
+//    }
 
     public Order() {
     }

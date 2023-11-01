@@ -49,8 +49,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Order order = orderList.get(position);
         holder.txtName.setText(order.getProductName());
-        holder.txtPrice.setText(order.getPrice());
         holder.imgCart.setImageResource(R.drawable.icon_home);
+        Locale locale = new Locale("vn","VN");
+        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
+        int price = (Integer.parseInt(orderList.get(position).getPrice()))*(Integer.parseInt(orderList.get(position).getQuantity()));
+        holder.txtPrice.setText(fmt.format(price));
     }
 
     @Override
@@ -71,9 +74,5 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             txtName = itemView.findViewById(R.id.txtNameC);
             txtPrice = itemView.findViewById(R.id.txtPriceC);
         }
-    }
-    public void updateOrderList(List<Order> updatedOrderList) {
-        this.orderList = updatedOrderList;
-        notifyDataSetChanged(); // Thông báo cập nhật dữ liệu cho RecyclerView
     }
 }

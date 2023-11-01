@@ -46,7 +46,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Request request = requests.get(position);
-        String requestKey = request.getKey(); // Get the key from the Request object
+        String requestKey = request.getKey();
         holder.txtKey.setText(requestKey);
         holder.txtStatus.setText(convertStatus(request.getStatus()));
         holder.txtPhone.setText(request.getPhone());

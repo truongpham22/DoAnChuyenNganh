@@ -27,7 +27,6 @@ public class OrderActivity extends AppCompatActivity {
     RecyclerView rcvOrder;
     OrderAdapter orderAdapter;
     List<Request> requestList;
-    Request rq;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference requests = database.getReference("Request");
 

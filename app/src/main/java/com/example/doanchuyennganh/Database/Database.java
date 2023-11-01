@@ -27,7 +27,7 @@ public class Database extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"ID","ProductName", "ProductId", "Quantity", "Price", "Discount"};
+        String[] sqlSelect = {"ProductName", "ProductId", "Quantity", "Price", "Discount"};
         String sqlTable = "OrderDetail";
 
         qb.setTables(sqlTable);
@@ -36,7 +36,6 @@ public class Database extends SQLiteAssetHelper {
         if (c.moveToFirst()) {
             do {
                 result.add(new Order(
-                        c.getInt(c.getColumnIndex("ID")),
                         c.getString(c.getColumnIndex("ProductId")),
                         c.getString(c.getColumnIndex("ProductName")),
                         c.getString(c.getColumnIndex("Quantity")),
