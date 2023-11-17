@@ -69,7 +69,8 @@ public class DetailAcitivity extends AppCompatActivity {
                         currentFood.getName(),
                         spinner.getSelectedItem().toString(),
                         currentFood.getPrice(),
-                        currentFood.getDiscount()
+                        currentFood.getDiscount(),
+                        currentFood.getImage()
                 ));
                 List<Order> orders = new Database(getBaseContext()).getCarts();
                 for (Order order : orders) {

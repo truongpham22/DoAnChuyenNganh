@@ -49,7 +49,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Order order = orderList.get(position);
         holder.txtName.setText(order.getProductName());
-        holder.imgCart.setImageResource(R.drawable.icon_home);
+        Picasso.get().load(order.getImage()).into(holder.imgCart);
         Locale locale = new Locale("vn","VN");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
         int price = (Integer.parseInt(orderList.get(position).getPrice()))*(Integer.parseInt(orderList.get(position).getQuantity()));

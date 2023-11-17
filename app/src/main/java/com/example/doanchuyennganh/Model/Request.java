@@ -1,8 +1,9 @@
 package com.example.doanchuyennganh.Model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Request {
+public class Request implements Serializable {
     private String name;
     private String phone;
     private String address;

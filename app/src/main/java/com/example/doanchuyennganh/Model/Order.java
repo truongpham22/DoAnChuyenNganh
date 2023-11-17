@@ -1,31 +1,36 @@
 package com.example.doanchuyennganh.Model;
 
-public class Order {
+import java.io.Serializable;
+
+public class Order implements Serializable {
     private int ID;
     private String ProductId;
     private String ProductName;
     private String Quantity;
     private String Price;
     private String Discount;
+    private String Image;
 
-//    public Order(int ID, String productId, String productName, String quantity, String price, String discount) {
+//    public Order(int ID, String productId, String productName, String quantity, String price, String discount, String image) {
 //        this.ID = ID;
 //        ProductId = productId;
 //        ProductName = productName;
 //        Quantity = quantity;
 //        Price = price;
 //        Discount = discount;
+//        Image = image;
 //    }
 
     public Order() {
     }
 
-    public Order(String productId, String productName, String quantity, String price, String discount) {
+    public Order(String productId, String productName, String quantity, String price, String discount, String image) {
         ProductId = productId;
         ProductName = productName;
         Quantity = quantity;
         Price = price;
         Discount = discount;
+        Image = image;
     }
 
 
@@ -75,5 +80,13 @@ public class Order {
 
     public void setDiscount(String discount) {
         Discount = discount;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 }

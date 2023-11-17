@@ -1,6 +1,7 @@
 package com.example.doanchuyennganh.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,18 +9,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doanchuyennganh.Fragment.CartFragment;
-import com.example.doanchuyennganh.Model.Category;
-import com.example.doanchuyennganh.Model.Order;
+import com.example.doanchuyennganh.Activity.DetailAcitivity;
+import com.example.doanchuyennganh.Activity.OrderDetail;
+import com.example.doanchuyennganh.Model.CurrentUser;
 import com.example.doanchuyennganh.Model.Request;
 import com.example.doanchuyennganh.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -51,6 +50,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.txtStatus.setText(convertStatus(request.getStatus()));
         holder.txtPhone.setText(request.getPhone());
         holder.txtAddress.setText(request.getAddress());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToDetailOrder(request);
+            }
+
+            private void goToDetailOrder(Request request) {
+                Intent intent = new Intent(context, OrderDetail.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("obj_request", request);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -64,17 +77,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private String convertStatus(String status){
         if (status.equals("0"))
             return "Đã nhận";
-        {
+        else if (status.equals("1"))
             return "Đang giao";
-        }
+        else
+            return "Đã giao";
     }
 
 
     public class OrderViewHolder extends RecyclerView.ViewHolder{
         public TextView txtKey, txtAddress, txtStatus, txtPhone;
+        public CardView cardView;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardView = itemView.findViewById(R.id.layout_cart);
             txtKey = itemView.findViewById(R.id.txtKeyO);
             txtAddress = itemView.findViewById(R.id.txtAddressO);
             txtStatus = itemView.findViewById(R.id.txtStatus);
